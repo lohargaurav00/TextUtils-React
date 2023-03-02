@@ -6,40 +6,58 @@ export default function TextForm(props) {
     setText(newText);
     let preview = document.getElementById("preview");
     preview.hidden = false
-    
+    props.show_alert("Converted to Uppercase.", "success");
   };
+  
   const lowerText = () => {
     let newText = text.toLowerCase();
     setText(newText);
     let preview = document.getElementById("preview");
     preview.hidden = false
+    props.show_alert("Converted to Lowercase.", "success");
   };
-
+  
   const previewText = () =>{
     let preview = document.getElementById("preview");
     if (preview.hidden === true){
       preview.hidden = false
+      props.show_alert("Text Preview is Enabled.", "success");
     }
     else{
       preview.hidden = true
-    }
-  }
+      props.show_alert("Text Preview is Disabled.", "success");
+    };
+  };
+  
+  const speakText = () =>{
+    let newText = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(newText);
+    props.show_alert("Text is converted to voice.", "success");
+  };
+  
+  const clearText = () =>{
+    let newText = ''
+    setText(newText);
+    props.show_alert("Text is cleared.", "success");
+  };
 
   const handleonChange = (e) => {
     setText(e.target.value);
   };
 
-  const [text, setText] = useState("Enter your text");
+  const [text, setText] = useState('');
   return (
     <>
-      <div className="container">
+      <div className="container" style={{color: props.Theme ==="light"?"black":"white"}}>
         <h1> {props.heading} </h1>
-        <textarea className="form-control" id="Mytext" rows="8" value={text} onChange={handleonChange}></textarea>
+        <textarea className="form-control" id="Mytext" rows="8" value={text} style={{backgroundColor: props.Theme ==="dark"?"#121212":"white", color: props.Theme ==="light"?"black":"white"}} onChange={handleonChange}></textarea>
         <button className="btn btn-primary my-2 mx-1" onClick={upperText}>Convert to UPPERCASE</button>
         <button className="btn btn-primary my-2 mx-1" onClick={lowerText}>Convert to lowercase</button>
         <button className="btn btn-primary my-2 mx-1" onClick={previewText}>Preview</button>
+        <button className="btn btn-primary my-2 mx-1" onClick={speakText}>Speak Text</button>
+        <button className="btn btn-primary my-2 mx-1" onClick={clearText}>Clear Text</button>
       </div>
-      <div className="container">
+      <div className="container" style={{color: props.Theme ==="light"?"black":"white"}}>
           <h2>Your text summary</h2>
           <p><b>{text.split(' ').length}</b> No. of words and <b>{text.length}</b> No. of characters</p>
           <p> Estimate time required to Read = <b> {0.008* text.split(' ').length} Minutes</b></p>
