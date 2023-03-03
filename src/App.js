@@ -3,7 +3,7 @@ import "./App.css";
 import Navbar from "./Components/Navbar";
 import TextForm from "./Components/TextForm";
 import React, { useState } from "react";
-import Alert from "./Alert";
+import Alert from "./Components/Alert";
 // import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function App() {
