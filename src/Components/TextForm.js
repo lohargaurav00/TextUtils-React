@@ -63,7 +63,7 @@ export default function TextForm(props) {
           <p> Estimate time required to Read = <b> {0.008* text.split(' ').filter((element)=>{return element.length!==0}).length} Minutes</b></p>
           <div id="preview" hidden>
             <h4>Preview</h4>
-            <p> {text} </p>
+            <p> {text} </p>~
           </div>
       </div>
     </>
